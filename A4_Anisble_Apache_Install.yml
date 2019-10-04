@@ -26,4 +26,4 @@
   handlers:
      - name: start apache
        service: name=httpd state=started
-~                                          
+                                          
