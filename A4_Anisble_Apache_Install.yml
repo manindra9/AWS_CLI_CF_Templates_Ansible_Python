@@ -1,0 +1,29 @@
+---
+- hosts: localhost
+  become: yes
+  tasks:
+    - name: Install apache packages
+      yum:
+        pkg: httpd
+        state: present
+
+    - name: ensure httpd is running
+      service:
+        name: httpd
+        enabled: yes
+      notify:
+        - start apache
+
+    - name: fetch file from s3
+      aws_s3:
+        aws_access_key: ""
+        aws_secret_key: ""
+        bucket:  mybucket102410244
+        object: https://mybucket102410244.s3.us-east-2.amazonaws.com/index.html
+        dest: /var/www/html/
+        mode: get
+
+  handlers:
+     - name: start apache
+       service: name=httpd state=started
+~                                          

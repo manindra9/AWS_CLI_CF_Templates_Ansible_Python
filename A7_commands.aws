@@ -1,0 +1,37 @@
+## A1
+# Delete VPC
+aws ec2 delete-vpc --vpc-id   <VPC ID>
+
+# Delete Internet Gateway
+aws ec2 delete-internet-gateway --internet-gateway-id <IGW ID>
+
+# Delete Subnets
+aws ec2 delete-subnet --subnet-id   <Subnet ID>
+
+# Delete Route Table
+aws ec2 delete-route-table --route-table-id <Route Table>
+
+## A2
+# Deleting S3 Bucket along with the contents inside it
+aws s3 rb s3://<bucket-name> --force
+
+##A3
+# Deleting Instance in AWS
+aws opsworks delete-instance --region us-east-2 --instance-id <ID>
+
+##A5
+# Getting the shapshot id using describe-images
+aws ec2 describe-images --image-ids <ami-id>
+
+# De-registering the image
+aws ec2 deregister-image --image-id <ami-id>
+
+# Removing the Snapshots
+aws ec2 delete-snapshot --snapshot-id <Snapshot-Id>
+
+##A6
+# Deleting AutoScaling Group
+aws ec2 delete-launch-template --launch-template-id <id>
+
+# Deleting Autoscaling Configuration
+aws autoscaling delete-launch-configuration --launch-configuration-name <name>

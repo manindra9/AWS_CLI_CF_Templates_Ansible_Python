@@ -1,0 +1,26 @@
+---
+- hosts: localhost
+  become: yes
+  tasks:
+  - name: power off instances
+    ec2_instance: 
+      aws_access_key: ""
+      aws_secret_key: ""
+      instance_ids: "i-0b34eb2be37d319e0"
+      region: us-east-2
+      vpc_subnet_id: subnet-080fa1b503d1a211f
+      security_group: sg-00e53eaf63dc24b1d
+      key_name: aws
+      wait: true
+      state: stopped
+
+  - name: "create unencrypted AMI in {{ account.key }}"
+    ec2_ami:
+      aws_access_key: ""
+      aws_secret_key: ""
+      instance_id: "i-0b34eb2be37d319e0"
+      name: new-ami
+      region: us-east-2
+      wait: true
+      delete_snapshot: false
+      state: present

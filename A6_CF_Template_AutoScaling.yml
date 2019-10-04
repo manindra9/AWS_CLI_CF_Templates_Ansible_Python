@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: 2010-09-09
+Resources:
+    LaunchConfig: 
+      Type: AWS::AutoScaling::LaunchConfiguration
+      Properties: 
+        KeyName: aws
+        ImageId: 'ami-02ad6b83fd606d009'
+        SecurityGroups: 'sg-00e53eaf63dc24b1d'
+        InstanceType: t2.micro
+        LaunchConfigurationName: LC_Test
+
+    AutoScalingGroup:
+      Type: AWS::AutoScaling::AutoScalingGroup
+      Properties:
+        AutoScalingGroupName: ASG_Test
+        DesiredCapacity: 2
+        LaunchConfigurationName: !Ref LaunchConfig
+        MaxSize: 4
+        MinSize: 1
+        VPCZoneIdentifier: 'subnet-080fa1b503d1a211f'

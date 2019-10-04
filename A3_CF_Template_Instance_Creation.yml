@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: 2010-09-09
+Resources:
+
+# Creating Security Group In a Particular VPC
+  SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: 'SecGroup'
+      GroupDescription: 'SSH and Apache Tarffic'
+      VpcId: 'vpc-0ec8568980d110f76'
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: '22'
+        ToPort: '22'
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: tcp
+        FromPort: 80
+        ToPort: 80
+        CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+      - IpProtocol: -1
+        CidrIp: 0.0.0.0/0
+
+# Create Instance
+  Ec2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: 't2.micro'
+      ImageId: 'ami-02ad6b83fd606d009'
+      KeyName: aws
+      SubnetId: 'subnet-080fa1b503d1a211f'
+      SecurityGroupIds:
+      - !Ref SecurityGroup
+      Tags:
+      - Key: Name
+        Value: My EC2 Instance
